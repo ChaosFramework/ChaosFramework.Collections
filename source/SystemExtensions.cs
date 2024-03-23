@@ -93,6 +93,9 @@ namespace ChaosFramework.Collections
             this System.Collections.IEnumerable enumerable,
             System.Func<object, TResult> selector
             )
-            => from x in enumerable select selector(x);
+        {
+            foreach (object element in enumerable)
+                yield return selector(element);
+        }
     }
 }
