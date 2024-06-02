@@ -7,15 +7,26 @@
 
   <PropertyGroup>
     <ProjectStyle>VS</ProjectStyle>
+    <ChaosAnalyzers_CleanCode_Analyzer_TF>net4.5</ChaosAnalyzers_CleanCode_Analyzer_TF>
   </PropertyGroup>
 
-  <Import Project="Directory.Build.props" />
+  <Import Project="submodules/ChaosPresets.Targets/Frameworks/net4.5.2.targets" />
+  <Import Project="submodules/ChaosPresets.Targets/Paths/Output/bin.targets" />
   <Import Project="ChaosFramework.Collections.props" />
 
   <!-- Included Files -->
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="source\**\*.cs" />
+  </ItemGroup>
+
+  <!-- Cleanup Tasks -->
+  <Import Project="submodules/ChaosPresets.References/BuildTasks/ChaosBuild.ProjectAnalyzer.targets" />
+  <Import Project="submodules/ChaosPresets.References/BuildTasks/ChaosBuild.CodeFormatter.Tasks.ChangedProjectFiles.targets" />
+
+  <!-- References -->
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
 
   <!-- Default Targets for Building CSharp Projects -->
