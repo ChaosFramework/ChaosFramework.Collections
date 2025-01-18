@@ -2,12 +2,6 @@ using SysCol = System.Collections.Generic;
 
 namespace ChaosFramework.Collections.Immutable
 {
-    public interface IReadonlySet<Element>
-        : SysCol.IEnumerable<Element>
-    {
-        bool Contains(Element element);
-    }
-
     public sealed class ImmutableHashSet<Element>
         : IReadonlySet<Element>
     {
