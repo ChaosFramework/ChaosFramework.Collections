@@ -3,7 +3,6 @@ using SysCol = System.Collections.Generic;
 namespace ChaosFramework.Collections.Immutable
 {
     public sealed class ImmutableHashSet<Element>
-        : IReadonlySet<Element>
     {
         readonly SysCol.HashSet<Element> set;
 
