@@ -3,6 +3,7 @@ using SysCol = System.Collections.Generic;
 namespace ChaosFramework.Collections.Immutable
 {
     public sealed class ImmutableHashSet<Element>
+        : SysCol.IEnumerable<Element>
     {
         readonly SysCol.HashSet<Element> set;
 
@@ -32,9 +33,6 @@ namespace ChaosFramework.Collections.Immutable
 
         public bool Contains(Element element)
             => set.Contains(element);
-
-        bool IReadonlySet<Element>.Contains(Element element)
-            => Contains(element);
 
         public static implicit operator ImmutableHashSet<Element>(SysCol.HashSet<Element> set)
             => new ImmutableHashSet<Element>(set);
