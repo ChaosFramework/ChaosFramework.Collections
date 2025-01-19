@@ -24,7 +24,10 @@ namespace ChaosFramework.Collections.Immutable
             this.set = new SysCol.HashSet<Element>(set);
         }
 
-        /// <summary> Creates an <see cref="ImmutableHashSet{Element}"/> from the provided <see cref="SysCol.IEnumerable{Element}"/>. </summary>
+        /// <summary>
+        ///     Creates an <see cref="ImmutableHashSet{Element}"/> from
+        ///     the provided <see cref="SysCol.IEnumerable{Element}"/>.
+        /// </summary>
         /// <param name="set"> The source data to be contained by this <see cref="ImmutableHashSet{Element}"/>. </param>
         public ImmutableHashSet(SysCol.IEnumerable<Element> set)
         {
