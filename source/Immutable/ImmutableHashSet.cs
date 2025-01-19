@@ -9,7 +9,7 @@ namespace ChaosFramework.Collections.Immutable
 
         public ImmutableHashSet(SysCol.HashSet<Element> set)
         {
-            this.set = set;
+            this.set = new SysCol.HashSet<Element>(set);
         }
 
         public ImmutableHashSet(SysCol.IEnumerable<Element> set)
