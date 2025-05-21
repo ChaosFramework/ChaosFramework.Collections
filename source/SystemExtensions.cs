@@ -97,5 +97,14 @@ namespace ChaosFramework.Collections
             foreach (object element in enumerable)
                 yield return selector(element);
         }
+        public static Value GetOrCreateValue<Key, Value>(this SysCol.IDictionary<Key, Value> @this, Key key)
+            where Value : new()
+        {
+            Value value;
+            if (!@this.TryGetValue(key, out value))
+                @this[key] = value = new Value();
+
+            return value;
+        }
     }
 }
