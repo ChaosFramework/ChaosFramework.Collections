@@ -97,6 +97,16 @@ namespace ChaosFramework.Collections
             foreach (object element in enumerable)
                 yield return selector(element);
         }
+
+        /// <summary>
+        ///     Retrieve the value registered for the provided key if it exists
+        ///     or create and register a new value using its default constructor.
+        /// </summary>
+        /// <typeparam name="Key"> The key type of the dictionary. </typeparam>
+        /// <typeparam name="Value"> The value type of the dictionary. </typeparam>
+        /// <param name="this"> The dictionary instance to retrieve the value from. </param>
+        /// <param name="key"> The key whose value to retrieve. </param>
+        /// <returns> The existing or newly generated value. </returns>
         public static Value GetOrCreateValue<Key, Value>(this SysCol.IDictionary<Key, Value> @this, Key key)
             where Value : new()
         {
