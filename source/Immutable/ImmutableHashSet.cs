@@ -19,6 +19,9 @@ namespace ChaosFramework.Collections.Immutable
         /// <summary> The underlying hashset. </summary>
         readonly SysCol.HashSet<Element> set;
 
+        /// <summary> The number of elements contained. </summary>
+        public int length => set.Count;
+
         /// <summary> Creates an immutable copy of the provided <see cref="SysCol.HashSet{Element}"/>. </summary>
         /// <param name="set"> The source data to be contained by this <see cref="ImmutableHashSet{Element}"/>. </param>
         public ImmutableHashSet(SysCol.HashSet<Element> set)
