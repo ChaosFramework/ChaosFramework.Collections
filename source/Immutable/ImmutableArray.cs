@@ -13,7 +13,7 @@ namespace ChaosFramework.Collections.Immutable
     ///     </para>
     /// </summary>
     /// <typeparam name="T"> The element type of the array. </typeparam>
-    public class ImmutableArray<T> : SysCol.IEnumerable<T>, IEnumerable
+    public partial class ImmutableArray<T> : SysCol.IEnumerable<T>, IEnumerable
     {
         readonly T[] data;
 
