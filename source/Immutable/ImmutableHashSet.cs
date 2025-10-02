@@ -1,4 +1,5 @@
 using SysCol = System.Collections.Generic;
+using System.Linq;
 
 namespace ChaosFramework.Collections.Immutable
 {
@@ -13,6 +14,7 @@ namespace ChaosFramework.Collections.Immutable
     /// <typeparam name="Element"> The element type of the hashset. </typeparam>
     public sealed class ImmutableHashSet<Element>
         : SysCol.IEnumerable<Element>
+        , System.IEquatable<ImmutableHashSet<Element>>
     {
         /// <summary> The underlying hashset. </summary>
         readonly SysCol.HashSet<Element> set;
@@ -63,5 +65,16 @@ namespace ChaosFramework.Collections.Immutable
         /// <param name="set"> The set to be copied. </param>
         public static implicit operator ImmutableHashSet<Element>(SysCol.HashSet<Element> set)
             => new ImmutableHashSet<Element>(set);
+
+        public override bool Equals(object obj)
+            => Equals(obj as ImmutableHashSet<Element>);
+
+        public bool Equals(ImmutableHashSet<Element> obj)
+            => obj != null
+            && obj.length == length
+            && obj.set.All(x => set.Contains(x));
+
+        public override int GetHashCode()
+            => set.Count;
     }
 }
