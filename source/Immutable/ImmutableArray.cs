@@ -20,7 +20,7 @@ namespace ChaosFramework.Collections.Immutable
 
         /// <summary> Constructs an <see cref="ImmutableArray{T}"/> copy of a <see cref="System.Array"/>. </summary>
         /// <param name="data"> The source data to be contained by this <see cref="ImmutableArray{T}"/>. </param>
-        public ImmutableArray(T[] data)
+        public ImmutableArray(params T[] data)
         {
             this.data = (T[])data.Clone();
         }
@@ -37,7 +37,8 @@ namespace ChaosFramework.Collections.Immutable
 
         /// <summary> Constructs an <see cref="ImmutableArray{T}"/> copy of a <see cref="System.Array"/>. </summary>
         /// <param name="data"> The source data to be contained by this <see cref="ImmutableArray{T}"/>. </param>
-        public static implicit operator ImmutableArray<T>(T[] data) => new ImmutableArray<T>(data);
+        public static implicit operator ImmutableArray<T>(T[] data)
+            => data == null ? null : new ImmutableArray<T>(data);
 
         /// <summary> Returns a flat copy of this <see cref="ImmutableArray{T}"/>'s data. </summary>
         public T[] ToArray() => (T[])data.Clone();
