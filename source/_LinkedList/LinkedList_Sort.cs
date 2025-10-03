@@ -50,6 +50,10 @@ namespace ChaosFramework.Collections
             Add(obj);
         }
 
+        public void Sort<T>()
+            where T : ContentType, IComparable<ContentType>
+            => Sort(CompareContentType<T>);
+
         /// <summary> Sorts this instance by the given <see cref="Comparison{ContentType}"/>. </summary>
         /// <param name="comparison"> Determines the desired order of the list. </param>
         public void Sort(Comparison<ContentType> comparison)
@@ -60,7 +64,6 @@ namespace ChaosFramework.Collections
                 temp.Add(new Node(this[0]));
                 for (Node n = firstNode.next; n != null; n++)
                 {
-                    // TODO: use AddSorted?
                     bool inserted = false;
                     for (Node t = temp.firstNode; !inserted && t != null; t++)
                         if (comparison(n.content, t.content) < 0)
