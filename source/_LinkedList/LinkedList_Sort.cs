@@ -58,7 +58,6 @@ namespace ChaosFramework.Collections
         /// <param name="comparison"> Determines the desired order of the list. </param>
         public void Sort(Comparison<ContentType> comparison)
         {
-            // TODO: sort in place by shifting nodes around, don't be stupid and create a new list.
             LinkedList<ContentType> temp = new LinkedList<ContentType>();
             if (length > 0)
             {
