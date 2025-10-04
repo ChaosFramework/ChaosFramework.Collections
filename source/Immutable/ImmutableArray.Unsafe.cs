@@ -15,16 +15,7 @@ namespace ChaosFramework.Collections.Immutable
         ///     Modifications to a copied reference can't be detected after
         ///     the <see cref="UnsafeArrayView"/> object ran out of scope.
         /// </remarks>
-        public
-#if DEBUG
-            UnsafeArrayView
-#else
-            T[]
-#endif
-            GetUnsafeUnderlyingArray()
-#if !DEBUG
-            => data;
-#else
+        public UnsafeArrayView GetUnsafeUnderlyingArray()
             => new UnsafeArrayView(data);
 
         /// <summary>
@@ -35,22 +26,27 @@ namespace ChaosFramework.Collections.Immutable
         public class UnsafeArrayView
         {
             public readonly T[] data;
+#if DEBUG
             readonly T[] debugReference;
+#endif
 
             public UnsafeArrayView(T[] data)
             {
                 this.data = data;
+#if DEBUG
                 debugReference = new T[data.Length];
                 System.Array.Copy(data, debugReference, data.Length);
+#endif
             }
 
+#if DEBUG
             ~UnsafeArrayView()
             {
                 System.Diagnostics.Debug.Assert(debugReference.SequenceEqual(data));
             }
+#endif
 
             public static implicit operator T[] (UnsafeArrayView view) => view.data;
         }
-#endif
     }
 }
