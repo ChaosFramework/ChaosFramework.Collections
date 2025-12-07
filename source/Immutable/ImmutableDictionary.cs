@@ -1,13 +1,16 @@
 using IEnumerable = System.Collections.IEnumerable;
 using IEnumerator = System.Collections.IEnumerator;
 using SysCol = System.Collections.Generic;
+using System.Linq;
 
 namespace ChaosFramework.Collections.Immutable
 {
     /// <summary> Represents an immutable copy of a <see cref="SysCol.Dictionary{TKey, TValue}"/>. </summary>
     /// <typeparam name="TKey"> The key type of the dictionary. </typeparam>
     /// <typeparam name="TValue"> The value type of the dictionary. </typeparam>
-    public class ImmutableDictionary<TKey, TValue> : SysCol.IEnumerable<SysCol.KeyValuePair<TKey, TValue>>
+    public class ImmutableDictionary<TKey, TValue>
+        : SysCol.IEnumerable<SysCol.KeyValuePair<TKey, TValue>>
+        , System.IEquatable<ImmutableDictionary<TKey, TValue>>
     {
         readonly SysCol.Dictionary<TKey, TValue> data;
 
@@ -60,5 +63,22 @@ namespace ChaosFramework.Collections.Immutable
         /// <param name="data"> The <see cref="SysCol.Dictionary{TKey, TValue}"/> to be wrapped. </param>
         public static implicit operator ImmutableDictionary<TKey, TValue>(SysCol.Dictionary<TKey, TValue> data)
             => new ImmutableDictionary<TKey, TValue>(data);
+
+        public override bool Equals(object obj)
+            => Equals(obj as ImmutableDictionary<TKey, TValue>);
+
+        public bool Equals(ImmutableDictionary<TKey, TValue> obj)
+            => obj != null
+            && obj.keys.Count == keys.Count
+            && obj.data.All(Contains);
+
+        bool Contains(SysCol.KeyValuePair<TKey, TValue> kv)
+        {
+            TValue val;
+            return data.TryGetValue(kv.Key, out val) && (kv.Value?.Equals(val) ?? val == null);
+        }
+
+        public override int GetHashCode()
+            => data.Count;
     }
 }
