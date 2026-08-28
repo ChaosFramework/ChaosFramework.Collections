@@ -1,6 +1,8 @@
 using System;
+using Concurrent = System.Collections.Concurrent;
 using IEnumerable = System.Collections.IEnumerable;
 using SysCol = System.Collections.Generic;
+using Thread = System.Threading.Thread;
 
 namespace ChaosFramework.Collections
 {
@@ -16,11 +18,17 @@ namespace ChaosFramework.Collections
           SysCol.IList<ContentType>,
           SysCol.ICollection<ContentType>
     {
+        Concurrent.ConcurrentDictionary<Thread, LinkedList<ListEnumerator>> threadEnumerators
+            = new Concurrent.ConcurrentDictionary<Thread, LinkedList<ListEnumerator>>();
+
+        LinkedList<ListEnumerator> GetThreadEnumerators(Thread thread)
+            => threadEnumerators.GetOrAdd(thread, new LinkedList<ListEnumerator>());
+
         /// <summary>
         ///     Stores enumerators for each currently active <see langword="foreach"/> loop.
         ///     The last entry describes the most inner loop.
         /// </summary>
-        LinkedList<ListEnumerator> enumerators = new LinkedList<ListEnumerator>();
+        LinkedList<ListEnumerator> enumerators => GetThreadEnumerators(Thread.CurrentThread);
 
         /// <summary>
         ///     Specifies the enumerator for the next <see langword="foreach"/> loop that is started.
